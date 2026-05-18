@@ -79,7 +79,7 @@ func (server *httpImpl) Login(w http.ResponseWriter, r *http.Request) {
 
 	http.SetCookie(w, c)
 
-	WriteJSON(w, Response{Data: TokenResponse{Role: user.Role, UserID: user.ID, Email: user.Email}, Success: true}, http.StatusOK)
+	WriteJSON(w, Response{Data: TokenResponse{Role: ADMIN, UserID: user.ID, Email: user.Email}, Success: true}, http.StatusOK)
 }
 
 func (server *httpImpl) NewUser(w http.ResponseWriter, r *http.Request) {
