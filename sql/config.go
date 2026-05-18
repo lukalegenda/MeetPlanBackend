@@ -32,14 +32,14 @@ func GetConfig() (Config, error) {
 	var config Config
 	file, err := os.ReadFile("config.json")
 	if err != nil {
-		marshal, err := json.Marshal(Config{
-			DatabaseName:     "sqlite3",
-			DatabaseConfig:   "MeetPlanDB/meetplan.db",
-			Debug:            true,
-			Host:             "127.0.0.1:8000",
-			CommitHash:       COMMIT_HASH,
-			RemoteRepository: "https://github.com/MeetPlan/MeetPlanBackend",
-		})
+marshal, err := json.Marshal(Config{
+    DatabaseName:     "postgres",
+    DatabaseConfig:   os.Getenv("DB_URL"),
+    Debug:            true,
+    Host:             "0.0.0.0:8080",
+    CommitHash:       COMMIT_HASH,
+    RemoteRepository: "https://github.com/MeetPlan/MeetPlanBackend",
+})
 		if err != nil {
 			return config, err
 		}
